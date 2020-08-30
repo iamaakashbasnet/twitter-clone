@@ -1,0 +1,24 @@
+{% extends 'tweet/base.html' %}
+
+{% block content %}
+    {% for tweet in tweets %}
+        <div class="card my-3 p-3 shadow-sm">
+            <h4 class="m-0 p-0">
+                <a href="#">
+                    {{ tweet.author }}
+                </a>
+            </h4>
+            <hr />
+            <p>{{ tweet.content }}</p>
+            <hr />
+            <div class="d-flex justify-content-between">
+                <div class="comments">
+                    10 comments
+                </div>
+                <div class="time">
+                    {{ tweet.date_posted }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}
