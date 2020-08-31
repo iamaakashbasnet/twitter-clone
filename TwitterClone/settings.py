@@ -125,3 +125,8 @@ STATIC_URL = '/static/'
 
 # Django Crispy Forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+# Login Redirects
+LOGIN_REDIRECT_URL = 'tweet-home'
+LOGIN_URL = 'login'
