@@ -25,7 +25,7 @@ SECRET_KEY = '07%nlb=fdrv-h%bwx76xw7%^u3o93a2y_*(icz110p7naz-$+g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -123,10 +123,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
+# Media files
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = Path.joinpath(BASE_DIR, 'media')
+
+
 # Django Crispy Forms
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Login Redirects
+
 LOGIN_REDIRECT_URL = 'tweet-home'
 LOGIN_URL = 'login'
