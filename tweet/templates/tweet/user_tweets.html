@@ -1,0 +1,70 @@
+{% extends "tweet/base.html" %}
+
+{% block content %}
+        <div class="card p-3 mb-5">
+            <h1 class="mb-3 font-weight-bold">Profile</h1>
+            <img class="rounded-circle w-50 mx-auto" src="{{ author_profile.profile.image.url }}">
+            <h3 class="text-center font-weight-bold">{{ author_profile.profile.user.first_name }} {{ author_profile.profile.user.last_name }}</h3>
+            <p class="mt-3 mb-0">Username: <span class="text-secondary font-weight-bold">{{ author_profile }}</span></p>
+            <p class="m-0 p-0">Email: <span class="text-secondary font-weight-bold">{{ author_profile.email }}</span></p>
+        </div>
+        <h3 class="mb-3 font-weight-bold">Total post ({{ page_obj.paginator.count }})</h3>
+    {% for tweet in tweets %}
+        <div class="card my-3 p-3 shadow-sm">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <img class="rounded-circle tweet-author-img" src="{{ tweet.author.profile.image.url }}" />
+                    <h4 class="m-0 mx-3 p-0">
+                        <a href="{% url 'user-tweets' tweet.author %}">
+                            {{ tweet.author }}
+                        </a>
+                    </h4>
+                </div>
+                <div>
+                    {% if tweet.author == user %}
+                    <div>
+                    <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'tweet-update' tweet.id %}"><i class="fa fa-pencil"></i></a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'tweet-delete' tweet.id %}"><i class="fa fa-trash"></i></a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <hr />
+            <p>
+                <a class="tweet-detail-link" href="{% url 'tweet-detail' tweet.id %}">
+                    {{ tweet.content }}
+                </a>
+            </p>
+            <hr />
+            <div class="d-flex justify-content-between">
+                <div class="comments">
+                    {{ tweet.number_of_comments }} comments
+                </div>
+                <div class="time">
+                    {{ tweet.date_posted }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% if is_paginated %}
+
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
+
+    {% endif %}
+{% endblock content %}

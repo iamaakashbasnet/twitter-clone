@@ -1,11 +1,12 @@
 {% extends "tweet/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
     <div class="card my-3 p-3 shadow-sm">
         <div class="d-flex justify-content-between align-items-center">
             <div>
                 <h4 class="m-0 p-0">
-                    <a href="#">
+                    <a href="{% url 'user-tweets' object.author %}">
                         {{ object.author }}
                     </a>
                 </h4>
@@ -13,8 +14,8 @@
             <div>
                 {% if object.author == user %}
                 <div>
-                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'tweet-update' object.id %}">Update</a>
-                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'tweet-delete' object.id %}">Delete</a>
+                <a class="btn btn-outline-primary btn-sm mt-1 mb-1" href="{% url 'tweet-update' object.id %}">Update</a>
+                <a class="btn btn-outline-danger btn-sm mt-1 mb-1" href="{% url 'tweet-delete' object.id %}">Delete</a>
                 </div>
                 {% endif %}
             </div>
@@ -24,11 +25,39 @@
         <hr />
         <div class="d-flex justify-content-between">
             <div class="comments">
-                10 comments
+                {{ tweet.number_of_comments }} comments
             </div>
             <div class="time">
                 {{ object.date_posted }}
             </div>
+        </div>
+    </div>
+
+    <div class="card p-3">
+        <h3 class="font-weight-bold border-bottom">Comments</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.content|as_crispy_field }}
+            <button class="btn btn-outline-primary" type="submit">Comment</button>
+        </form>
+        <hr>
+        <div class="comments-list">
+            <h5 class="text-muted">All Comments</h5>
+            {% for comment in comments %}
+                <div class="card p-2 my-2">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <a href="{% url 'user-tweets' comment.author %}">
+                                <img class="tweet-author-img rounded-circle" src="{{ comment.author.profile.image.url }}" />
+                            </a>
+                        </div>
+                        <div class="mx-3">
+                            <p>{{ comment.content }}</p>
+                            <small class="text-muted">By <a href="{% url 'user-tweets' comment.author %}">{{ comment.author }}</a> on {{ comment.date_posted }}</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock content %}

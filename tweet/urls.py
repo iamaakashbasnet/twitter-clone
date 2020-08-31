@@ -4,7 +4,8 @@ from .views import (
     TweetDetailView,
     TweetCreateView,
     TweetUpdateView,
-    TweetDeleteView
+    TweetDeleteView,
+    UserTweetListView
 )
 from . import views
 
@@ -15,5 +16,6 @@ urlpatterns = [
     path('tweet/new/', TweetCreateView.as_view(), name='tweet-create'),
     path('tweet/<int:pk>/update/', TweetUpdateView.as_view(), name='tweet-update'),
     path('tweet/<int:pk>/delete/', TweetDeleteView.as_view(), name='tweet-delete'),
+    path('user/<str:username>', UserTweetListView.as_view(), name='user-tweets'),
     path('about/', views.about, name='tweet-about')
 ]

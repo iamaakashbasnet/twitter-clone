@@ -4,9 +4,10 @@
     {% for tweet in tweets %}
         <div class="card my-3 p-3 shadow-sm">
             <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h4 class="m-0 p-0">
-                        <a href="#">
+                <div class="d-flex align-items-center">
+                    <img class="rounded-circle tweet-author-img" src="{{ tweet.author.profile.image.url }}" />
+                    <h4 class="m-0 mx-3 p-0">
+                        <a href="{% url 'user-tweets' tweet.author %}">
                             {{ tweet.author }}
                         </a>
                     </h4>
@@ -14,18 +15,24 @@
                 <div>
                     {% if tweet.author == user %}
                     <div>
-                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'tweet-update' tweet.id %}">Update</a>
-                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'tweet-delete' tweet.id %}">Delete</a>
+                    <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'tweet-update' tweet.id %}"><i class="fa fa-pencil"></i></a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'tweet-delete' tweet.id %}"><i class="fa fa-trash"></i></a>
                     </div>
                     {% endif %}
                 </div>
             </div>
             <hr />
-            <p>{{ tweet.content }}</p>
+            <p>
+                <a class="tweet-detail-link" href="{% url 'tweet-detail' tweet.id %}">
+                    {{ tweet.content }}
+                </a>
+            </p>
             <hr />
             <div class="d-flex justify-content-between">
                 <div class="comments">
-                    10 comments
+                    <a class="tweet-detail-link" href="{% url 'tweet-detail' tweet.id %}">
+                        {{ tweet.number_of_comments }} comments
+                    </a>
                 </div>
                 <div class="time">
                     {{ tweet.date_posted }}

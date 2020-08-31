@@ -7,3 +7,16 @@ body {
     line-height: 1.6;
     background: #f0f0f0;
 }
+
+.account-owner-img {
+    width: 1.6rem;
+}
+
+.tweet-author-img {
+    width: 3.2rem;
+}
+
+.tweet-detail-link {
+    text-decoration: none;
+    color: #000;
+}
