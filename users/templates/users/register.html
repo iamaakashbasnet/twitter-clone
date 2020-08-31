@@ -1,0 +1,16 @@
+{% extends 'tweet/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="card p-3 shadow-sm">
+        <h1 class="mb-3 font-weight-bold">Sign Up</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="form-group">
+                <button class="btn btn-outline-primary" type="submit">Sign Up</button>
+            </div>
+            <small>Already have an account? <a href="#">Login here</a></small>
+        </form>
+    </div>
+{% endblock content %}
