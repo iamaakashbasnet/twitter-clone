@@ -1,0 +1,17 @@
+{% extends "tweet/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="card p-3">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <h1 class="font-weight-bold mb-4">Tweet</h1>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Tweet it</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

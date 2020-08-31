@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 
@@ -11,3 +12,6 @@ class Tweet(models.Model):
 
     def __str__(self):
         return f'Post by { self.author } on { self.date_posted }'
+
+    def get_absolute_url(self):
+        return reverse('tweet-detail', kwargs={'pk': self.pk})
