@@ -1,3 +1,5 @@
+import json
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
@@ -34,6 +36,18 @@ class TweetListView(LoginRequiredMixin, ListView):
     context_object_name = 'tweets'
     ordering = ['-date_posted']
     paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+
+        tweets = Tweet.objects.all()
+        already_liked = []
+        id = self.request.user.id
+        for tweet in tweets:
+            if(tweet.likes.filter(id=id).exists()):
+                already_liked.append(tweet.id)
+        data['already_liked'] = already_liked
+        return data
 
     def get_queryset(self):
         user = self.request.user
@@ -140,6 +154,23 @@ class UserTweetListView(LoginRequiredMixin, ListView):
                     follows_between.delete()
 
         return self.get(self, request, *args, **kwargs)
+
+
+def like_button(request):
+    if request.method == "POST":
+        if request.POST.get("operation") == "like_submit" and request.is_ajax():
+            tweet_id = request.POST.get("tweet_id", None)
+            tweet = get_object_or_404(Tweet, pk=tweet_id)
+            # already liked the tweet
+            if tweet.likes.filter(id=request.user.id):
+                tweet.likes.remove(request.user)  # remove user from likes
+                liked = False
+            else:
+                tweet.likes.add(request.user)
+                liked = True
+            ctx = {"likes_count": tweet.total_likes,
+                   "liked": liked, "tweet_id": tweet_id}
+            return HttpResponse(json.dumps(ctx), content_type='application/json')
 
 
 def about(request):

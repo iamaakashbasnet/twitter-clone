@@ -203,5 +203,30 @@
             crossorigin="anonymous"
         ></script>
         <script src="{% static 'tweet/main.js' %}"></script>
+        <script>
+            $(document).ready(function () {
+                $('.likebtn').click(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'like' %}",
+                        data: { 'tweet_id': $(this).attr('name'), 'operation': 'like_submit', 'csrfmiddlewaretoken': '{{ csrf_token }}' },
+                        dataType: "json",
+                        success: function (response) {
+                            selector = document.getElementsByName(response.tweet_id);
+                            if (response.liked == true) {
+                                $(selector).html('Unlike');
+                            }
+                            else if (response.liked == false) {
+                                $(selector).html('Like');
+                            }
+
+
+                        }
+
+                    });
+
+                })
+            });
+        </script>
     </body>
 </html>

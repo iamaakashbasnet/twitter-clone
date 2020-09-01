@@ -31,7 +31,16 @@
                 </p>
                 <hr />
                 <div class="d-md-flex justify-content-between">
-                    <div class="comments">
+                    <div class="like-comments">
+                        {% if tweet.id in already_liked %} 
+                            <a name="{{ tweet.id }}" class="likebtn" id="co">
+                                Unlike
+                            </a>
+                        {% else %}
+                            <a name="{{ tweet.id }}" class="likebtn" id="co">
+                                Likes
+                            </a>
+                        {% endif %}
                         <a class="tweet-detail-link" href="{% url 'tweet-detail' tweet.id %}">
                             {{ tweet.number_of_comments }} comments
                         </a>
