@@ -3,11 +3,17 @@
 
 {% block content %}
     <div class="card p-3">
-        <h1 class="mb-5 font-weight-bold">Profile</h1>
+        <h1 class="mb-5 font-weight-bold">Settings</h1>
         <img class="rounded-circle w-50 mx-auto" src="{{ user.profile.image.url }}">
-        <h3 class="text-center font-weight-bold">{{ user.first_name }} {{ user.last_name }}</h3>
-        <p class="mt-3 mb-0">Username: <span class="text-secondary font-weight-bold">{{ user.username }}</span></p>
-        <p class="m-0 p-0">Email: <span class="text-secondary font-weight-bold">{{ user.email }}</span></p>
+        <div class="card p-2 d-inline mt-5 mb-2">
+            Name: <span class="text-secondary font-weight-bold">{{ user.first_name }} {{ user.last_name }}</span>
+        </div>
+        <div class="card p-2 d-inline mb-2">
+            Username: <span class="text-secondary font-weight-bold">{{ user.username }}</span>
+        </div>
+        <div class="card p-2 d-inline mb-2">
+            Email: <span class="text-secondary font-weight-bold">{{ user.email }}</span>
+        </div>
         <button type="button" class="btn btn-outline-primary my-3" data-toggle="modal" data-target="#staticBackdrop">
             Update profile information
         </button>

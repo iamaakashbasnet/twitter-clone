@@ -28,6 +28,7 @@ class TweetListView(ListView):
     template_name = 'tweet/home.html'
     context_object_name = 'tweets'
     ordering = ['-date_posted']
+    paginate_by = 5
 
 
 class TweetDetailView(DetailView):
