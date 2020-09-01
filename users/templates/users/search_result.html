@@ -21,6 +21,10 @@
             {% endfor %}
         </div>
     {% else %}
-        No result, please try to search again!
+        <div class="card my-3 p-3">
+        <h1 class="font-weight-bold">Search</h1>
+        <p class="lead">Search result for "{{ q }}"</p>
+        <p>No user with that usernname</p>
+        </div>
     {% endif %}
 {% endblock %}

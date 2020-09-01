@@ -213,19 +213,18 @@
                         dataType: "json",
                         success: function (response) {
                             selector = document.getElementsByName(response.tweet_id);
+                            total_likes = document.getElementsByName('total_likes_'+response.tweet_id);
                             if (response.liked == true) {
-                                $(selector).html('Unlike');
+                                $(total_likes).html(response.likes_count);
+                                $(selector).addClass('text-primary').removeClass('text-dark')
                             }
                             else if (response.liked == false) {
-                                $(selector).html('Like');
+                                $(total_likes).html(response.likes_count);
+                                $(selector).addClass('text-dark').removeClass('text-primary')
                             }
-
-
                         }
-
                     });
-
-                })
+                });
             });
         </script>
     </body>

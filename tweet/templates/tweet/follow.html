@@ -1,0 +1,51 @@
+{% extends "tweet/base.html" %}
+
+{% block content %}
+    {% if follow == 'follows' %}
+        <h1 class="font-weight-bold mb-3">
+            Following
+        </h1>
+        {% for follow in follows %}
+            <div class="card p-3 my-2">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <img
+                            class="rounded-circle tweet-author-img mr-2"
+                            src="{{ follow.follow_user.profile.image.url }}"
+                        />
+                    </div>
+                    <div>
+                        <a class="mr-2 white-important" href="{% url 'user-tweets' follow.follow_user.username %}">
+                            {{ follow.follow_user.first_name }} {{ follow.follow_user.last_name }} <br />
+                        </a>
+                        <small class="text-muted">{{ follow.follow_user.username }}</small>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if follow == 'followers' %}
+        <h1 class="font-weight-bold mb-3">
+            Followers
+        </h1>
+        {% for follow in follows %}
+            <div class="card p-3 my-2">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <img
+                            class="rounded-circle tweet-author-img mr-2"
+                            src="{{ follow.user.profile.image.url }}"
+                        />
+                    </div>
+                    <div>
+                        <a class="mr-2 white-important" href="{% url 'user-tweets' follow.user.username %}">
+                            {{ follow.user.first_name }} {{ follow.user.last_name }}
+                        </a><br>
+                        <small class="text-muted">{{ follow.user.username }}</small>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock content %}

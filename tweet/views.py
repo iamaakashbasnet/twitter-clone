@@ -47,6 +47,7 @@ class TweetListView(LoginRequiredMixin, ListView):
             if(tweet.likes.filter(id=id).exists()):
                 already_liked.append(tweet.id)
         data['already_liked'] = already_liked
+        data['title'] = 'Home - Twitter Clone'
         return data
 
     def get_queryset(self):
@@ -67,6 +68,7 @@ class TweetDetailView(DetailView):
             related_tweet=self.get_object()).order_by('-date_posted')
         data['comments'] = related_comments
         data['form'] = NewCommentForm(instance=self.request.user)
+        data['title'] = 'Tweet Detail'
         return data
 
     def post(self, request, *args, **kwargs):
@@ -82,6 +84,11 @@ class TweetCreateView(LoginRequiredMixin, CreateView):
     model = Tweet
     fields = ['content']
 
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['title'] = 'Create a tweet'
+        return data
+
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -90,6 +97,11 @@ class TweetCreateView(LoginRequiredMixin, CreateView):
 class TweetUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Tweet
     fields = ['content']
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['title'] = 'Update Tweet'
+        return data
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -105,6 +117,11 @@ class TweetUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class TweetDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Tweet
     success_url = '/'
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['title'] = 'Delete Tweet'
+        return data
 
     def test_func(self):
         Tweet = self.get_object()
@@ -133,6 +150,7 @@ class UserTweetListView(LoginRequiredMixin, ListView):
         data = super().get_context_data(**kwargs)
         data['author_profile'] = tweet_author
         data['can_follow'] = can_follow
+        data['title'] = self.request.user.username
         return data
 
     def get_queryset(self):
@@ -171,6 +189,44 @@ def like_button(request):
             ctx = {"likes_count": tweet.total_likes,
                    "liked": liked, "tweet_id": tweet_id}
             return HttpResponse(json.dumps(ctx), content_type='application/json')
+
+
+class FollowingListView(ListView):
+    model = Follow
+    template_name = 'tweet/follow.html'
+    context_object_name = 'follows'
+
+    def visible_user(self):
+        return get_object_or_404(User, username=self.kwargs.get('username'))
+
+    def get_queryset(self):
+        user = self.visible_user()
+        return Follow.objects.filter(user=user).order_by('-date')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['follow'] = 'follows'
+        data['title'] = 'Following'
+        return data
+
+
+class FollowersListView(ListView):
+    model = Follow
+    template_name = 'tweet/follow.html'
+    context_object_name = 'follows'
+
+    def visible_user(self):
+        return get_object_or_404(User, username=self.kwargs.get('username'))
+
+    def get_queryset(self):
+        user = self.visible_user()
+        return Follow.objects.filter(follow_user=user).order_by('-date')
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['follow'] = 'followers'
+        data['title'] = 'Followers'
+        return data
 
 
 def about(request):

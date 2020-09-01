@@ -29,3 +29,12 @@ html,body {
 .intro-logo {
     width: 4rem;
 }
+
+.likebtn {
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.likebtn i {
+    font-size: 1.5rem;
+}
