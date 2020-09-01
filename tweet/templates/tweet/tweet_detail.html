@@ -42,22 +42,26 @@
         </form>
         <hr>
         <div class="comments-list">
-            <h5 class="text-muted">All Comments</h5>
-            {% for comment in comments %}
-                <div class="card p-2 my-2">
-                    <div class="d-flex align-items-center">
-                        <div>
-                            <a href="{% url 'user-tweets' comment.author %}">
-                                <img class="tweet-author-img rounded-circle" src="{{ comment.author.profile.image.url }}" />
-                            </a>
-                        </div>
-                        <div class="mx-3">
-                            <p>{{ comment.content }}</p>
-                            <small class="text-muted">By <a href="{% url 'user-tweets' comment.author %}">{{ comment.author }}</a> on {{ comment.date_posted }}</small>
+            <h5 class="text-muted font-weight-bold">All Comments</h5>
+            {% if comments %}
+                {% for comment in comments %}
+                    <div class="card p-2 my-2">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <a href="{% url 'user-tweets' comment.author %}">
+                                    <img class="tweet-author-img rounded-circle" src="{{ comment.author.profile.image.url }}" />
+                                </a>
+                            </div>
+                            <div class="mx-3">
+                                <p>{{ comment.content }}</p>
+                                <small class="text-muted">By <a href="{% url 'user-tweets' comment.author %}">{{ comment.author }}</a> on {{ comment.date_posted }}</small>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <p class="font-weight-bold text-center">No Comments yet!</p>
+            {% endif %}
         </div>
     </div>
 {% endblock content %}
