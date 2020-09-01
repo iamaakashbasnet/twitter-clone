@@ -57,10 +57,23 @@
             </p>
             <hr />
             <div class="d-md-flex justify-content-between">
-                <a class="tweet-detail-link" href="{% url 'tweet-detail' tweet.id %}">
-                    {{ tweet.number_of_comments }} comments
-                </a>
-                <div class="time">
+                <div class="like-comments">
+                    {% if tweet.id in already_liked %}
+                        <a name="{{ tweet.id }}" class="likebtn text-primary border p-2" id="co">
+                            <span name="total_likes_{{ tweet.id }}">{{ tweet.total_likes }}</span>
+                            <i class="fa fa-thumbs-up"></i>
+                        </a>
+                    {% else %}
+                        <a name="{{ tweet.id }}" class="likebtn text-dark border p-2" id="co">
+                        <span name="total_likes_{{ tweet.id }}">{{ tweet.total_likes }}</span>
+                            <i class="fa fa-thumbs-up"></i>
+                        </a>
+                    {% endif %}
+                    <a class="tweet-detail-link border p-2" href="{% url 'tweet-detail' tweet.id %}">
+                        {{ tweet.number_of_comments }} comments
+                    </a>
+                </div>
+                <div class="time mt-3 mt-sm-0">
                     {{ tweet.date_posted }}
                 </div>
             </div>

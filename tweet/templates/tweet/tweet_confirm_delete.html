@@ -16,15 +16,19 @@
                     <p>{{ object.content }}</p>
                     <hr />
                     <div class="d-md-flex justify-content-between">
-                        <div class="comments">
-                            <span class="tweet-detail-link">
-                                {{ tweet.number_of_comments }} comments
-                            </span>
-                        </div>
-                        <div class="time">
-                            {{ object.date_posted }}
-                        </div>
+                    <div class="like-comments">
+                        <a class="likebtn text-dark border p-2" id="co">
+                            <span name="total_likes_{{ tweet.id }}">{{ tweet.total_likes }}</span>
+                            <i class="fa fa-thumbs-up"></i>
+                        </a>
+                        <a class="tweet-detail-link border p-2" href="{% url 'tweet-detail' tweet.id %}">
+                            {{ tweet.number_of_comments }} comments
+                        </a>
                     </div>
+                    <div class="time mt-3 mt-sm-0">
+                        {{ tweet.date_posted }}
+                    </div>
+                </div>
                 </div>
             <div class="form-group">
                 <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>

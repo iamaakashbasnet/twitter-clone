@@ -66,6 +66,15 @@ class TweetDetailView(DetailView):
         data = super().get_context_data(**kwargs)
         related_comments = Comment.objects.filter(
             related_tweet=self.get_object()).order_by('-date_posted')
+
+        tweets = Tweet.objects.all()
+        already_liked = []
+        id = self.request.user.id
+        for tweet in tweets:
+            if(tweet.likes.filter(id=id).exists()):
+                already_liked.append(tweet.id)
+
+        data['already_liked'] = already_liked
         data['comments'] = related_comments
         data['form'] = NewCommentForm(instance=self.request.user)
         data['title'] = 'Tweet Detail'
@@ -148,6 +157,14 @@ class UserTweetListView(LoginRequiredMixin, ListView):
             can_follow = (Follow.objects.filter(user=logged_user,
                                                 follow_user=tweet_author).count() == 0)
         data = super().get_context_data(**kwargs)
+
+        tweets = Tweet.objects.all()
+        already_liked = []
+        id = self.request.user.id
+        for tweet in tweets:
+            if(tweet.likes.filter(id=id).exists()):
+                already_liked.append(tweet.id)
+        data['already_liked'] = already_liked
         data['author_profile'] = tweet_author
         data['can_follow'] = can_follow
         data['title'] = self.request.user.username
