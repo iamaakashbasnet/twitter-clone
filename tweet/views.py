@@ -99,7 +99,7 @@ class TweetDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
-class UserTweetListView(ListView):
+class UserTweetListView(LoginRequiredMixin, ListView):
     model = Tweet
     template_name = 'tweet/user_tweets.html'
     context_object_name = 'tweets'

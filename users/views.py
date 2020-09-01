@@ -6,6 +6,7 @@ from .forms import (
     UserUpdateForm,
     ProfileUpdateForm
 )
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -46,3 +47,15 @@ def profile(request):
     }
 
     return render(request, 'users/profile.html', context)
+
+
+@login_required
+def search(request):
+    if request.method == 'POST':
+        q = request.POST.get('q')
+        results = User.objects.filter(username__contains=q)
+        context = {
+            'results': results,
+            'q': q
+        }
+        return render(request, 'users/search_result.html', context)

@@ -43,8 +43,8 @@
                 <div>
                     {% if tweet.author == user %}
                     <div>
-                    <a class="btn btn-primary btn-sm mt-1 mb-1" href="{% url 'tweet-update' tweet.id %}"><i class="fa fa-pencil"></i></a>
-                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'tweet-delete' tweet.id %}"><i class="fa fa-trash"></i></a>
+                    <a class="btn btn-outline-primary btn-sm mt-1 mb-1" href="{% url 'tweet-update' tweet.id %}"><i class="fa fa-pencil"></i></a>
+                    <a class="btn btn-outline-danger btn-sm mt-1 mb-1" href="{% url 'tweet-delete' tweet.id %}"><i class="fa fa-trash"></i></a>
                     </div>
                     {% endif %}
                 </div>
@@ -56,10 +56,10 @@
                 </a>
             </p>
             <hr />
-            <div class="d-flex justify-content-between">
-                <div class="comments">
+            <div class="d-md-flex justify-content-between">
+                <a class="tweet-detail-link" href="{% url 'tweet-detail' tweet.id %}">
                     {{ tweet.number_of_comments }} comments
-                </div>
+                </a>
                 <div class="time">
                     {{ tweet.date_posted }}
                 </div>
