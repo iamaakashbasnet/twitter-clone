@@ -13,6 +13,11 @@
                         </span>
                     </h4>
                     <hr />
+                    {% if object.image %}
+                        <div class="img-container">
+                            <img src="{{ object.image.url }}" alt="">
+                        </div>
+                    {% endif %}
                     <p>{{ object.content }}</p>
                     <hr />
                     <div class="d-md-flex justify-content-between">

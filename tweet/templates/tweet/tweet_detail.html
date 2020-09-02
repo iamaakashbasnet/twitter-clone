@@ -21,6 +21,9 @@
             </div>
         </div>
         <hr />
+        {% if tweet.image %}
+            <img class="img-fluid" src="{{ tweet.image.url }}" />
+        {% endif %}
         <p>{{ object.content }}</p>
         <hr />
         <div class="d-md-flex justify-content-between">

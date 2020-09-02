@@ -3,13 +3,14 @@
 
 {% block content %}
     <div class="card p-3">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <fieldset class="form-group">
+            <div class="form-group">
                 <h1 class="font-weight-bold mb-4">Tweet</h1>
                 {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
+            </div>
+            <small class="text-muted">If you want you can also upload image</small>
+            <div class="form-group mt-3">
                 <button class="btn btn-outline-primary" type="submit">Tweet it</button>
             </div>
         </form>

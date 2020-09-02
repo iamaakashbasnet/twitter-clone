@@ -91,7 +91,7 @@ class TweetDetailView(DetailView):
 
 class TweetCreateView(LoginRequiredMixin, CreateView):
     model = Tweet
-    fields = ['content']
+    fields = ['content', 'image']
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)

@@ -24,6 +24,13 @@
                     </div>
                 </div>
                 <hr />
+                {% if tweet.image %}
+                    <div class="img-container">
+                        <a class="tweet-detail-link" href="{% url 'tweet-detail' tweet.id %}">
+                            <img src="{{ tweet.image.url }}" alt="">
+                        </a>
+                    </div>
+                {% endif %}
                 <p>
                     <a class="tweet-detail-link" href="{% url 'tweet-detail' tweet.id %}">
                         {{ tweet.content }}
