@@ -4,7 +4,7 @@
 {% block content %}
     {% if tweets %}
         {% for tweet in tweets %}
-            <div class="card my-3 p-3 shadow-sm">
+            <div class="card shadow-sm my-3 p-3">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
                         <img class="rounded-circle tweet-author-img" src="{{ tweet.author.profile.image.url }}" />
@@ -40,12 +40,12 @@
                 <div class="d-md-flex justify-content-between">
                     <div class="like-comments">
                         {% if tweet.id in already_liked %} 
-                            <a name="{{ tweet.id }}" class="likebtn text-primary border p-2" id="co">
+                            <a class="likebtn text-primary border p-2" name="{{ tweet.id }}" id="co">
                                 <span name="total_likes_{{ tweet.id }}">{{ tweet.total_likes }}</span>
                                 <i class="fa fa-thumbs-up"></i>
                             </a>
                         {% else %}
-                            <a name="{{ tweet.id }}" class="likebtn text-dark border p-2" id="co">
+                            <a class="likebtn text-dark border p-2"  name="{{ tweet.id }}" id="co">
                             <span name="total_likes_{{ tweet.id }}">{{ tweet.total_likes }}</span>
                                 <i class="fa fa-thumbs-up"></i>
                             </a>
@@ -76,7 +76,7 @@
         </div>
     </div>
 
-    <h3 class="text-center mt-5 font-weight-bold">No Tweets</h3>
+    <h3 class="text-center font-weight-bold mt-5">No Tweets</h3>
     <p class="text-center font-weight-bold">Follow some people to see tweets</p>
     {% endif %}
     <div class="text-center">

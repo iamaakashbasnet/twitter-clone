@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div class="card my-3 p-3 shadow-sm">
+    <div class="card shadow-sm my-3 p-3">
         <div class="d-flex justify-content-between align-items-center">
             <div>
                 <h4 class="m-0 p-0">
@@ -29,12 +29,12 @@
         <div class="d-md-flex justify-content-between">
             <div class="like-comments">
                 {% if tweet.id in already_liked %} 
-                    <a name="{{ tweet.id }}" class="likebtn text-primary border p-2" id="co">
+                    <a class="likebtn text-primary border p-2" name="{{ tweet.id }}" id="co">
                         <span name="total_likes_{{ tweet.id }}">{{ tweet.total_likes }}</span>
                         <i class="fa fa-thumbs-up"></i>
                     </a>
                 {% else %}
-                    <a name="{{ tweet.id }}" class="likebtn text-dark border p-2" id="co">
+                    <a  class="likebtn text-dark border p-2"  name="{{ tweet.id }}" id="co">
                     <span name="total_likes_{{ tweet.id }}">{{ tweet.total_likes }}</span>
                         <i class="fa fa-thumbs-up"></i>
                     </a>

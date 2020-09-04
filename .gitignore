@@ -3,3 +3,4 @@
 __pycache__
 db.sqlite3
 media/profile_pics/
+media/tweet_pics/

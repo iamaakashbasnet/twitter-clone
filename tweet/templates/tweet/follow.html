@@ -39,7 +39,7 @@
                         />
                     </div>
                     <div>
-                        <a class="mr-2 white-important" href="{% url 'user-tweets' follow.user.username %}">
+                        <a class="mr-2" href="{% url 'user-tweets' follow.user.username %}">
                             {{ follow.user.first_name }} {{ follow.user.last_name }}
                         </a><br>
                         <small class="text-muted">{{ follow.user.username }}</small>

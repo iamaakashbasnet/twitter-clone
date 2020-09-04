@@ -33,10 +33,10 @@
                 <div class="container-fluid">
                     <a class="navbar-brand font-weight-bold" href="{% url 'tweet-home' %}">
                         <img
+                            class="d-inline-block align-top"
                             src="{% static 'img/logo.png' %}"
                             width="30"
                             height="30"
-                            class="d-inline-block align-top"
                             alt=""
                             loading="lazy"
                         />
@@ -64,14 +64,14 @@
                             </li>
                         </ul>
                         {% if user.is_authenticated %}
-                            <ul class="navbar-nav ml-auto d-none d-md-block">
+                            <ul class="navbar-nav d-none d-md-block ml-auto">
                                 <li class="nav-item">
                                     <form class="form-inline mt-2 mt-md-0" action="{% url 'search' %}"  method="POST">
                                         {% csrf_token %}
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="q" placeholder="Search users..." />
+                                            <input class="form-control" type="text" name="q" placeholder="Search users..." />
                                             <div class="input-group-append">
-                                                <button type="submit" class="btn btn-outline-primary">Search</button>
+                                                <button class="btn btn-outline-primary" type="submit">Search</button>
                                             </div>
                                         </div>
                                     </form>
@@ -89,7 +89,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown">
                                         <img class="rounded-circle account-owner-img" src="{{ request.user.profile.image.url }}" />
                                         {{ request.user }}
                                     </a>
@@ -136,7 +136,7 @@
                         {% for message in messages %}
                             <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
                                 {{ message }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <button class="close" type="button" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -146,7 +146,7 @@
                 </div>
                 <div class="col-md-4">
                     {% if user.is_authenticated %}
-                        <div class="card my-3 shadow-sm">
+                        <div class="card shadow-sm my-3">
                             <div class="card-header font-weight-bold">
                                 Who to follow <br>
                                 <small class="text-muted">New Users</small>
@@ -160,7 +160,7 @@
                             </ul>
                         </div>
                     {% else %}
-                        <div class="my-md-5 d-flex flex-column align-items-center">
+                        <div class="d-flex flex-column align-items-center my-md-5">
                             <img class="intro-logo" src="{% static 'img/logo.png' %}" />
                             <p class="lead font-weight-bold">Connecting people</p>
                             <p>Join Twitter Clone Today</p>
@@ -169,7 +169,7 @@
                 </div>
             </div>
         </main>
-        <footer class="bg-light p-5 text-center">
+        <footer class="bg-light text-center p-5">
             Copright &copy; 2020 Twitter Clone <br /> <br />
             an <a href="https://iamaakashbasnet.github.io" target="_blank">
                 Aakash Basnet Production
@@ -180,7 +180,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Search <i class="fa fa-search"></i></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -190,7 +190,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" name="q" placeholder="Search users..." />
                                 <div class="input-group-append">
-                                    <button type="submit" class="btn btn-outline-primary">Search</button>
+                                    <button class="btn btn-outline-primary" type="submit">Search</button>
                                 </div>
                             </div>
                         </form>

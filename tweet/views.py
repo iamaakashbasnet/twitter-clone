@@ -65,7 +65,7 @@ class TweetDetailView(DetailView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         related_comments = Comment.objects.filter(
-            related_tweet=self.get_object()).order_by('-date_posted')
+            related_tweet=self.get_object()).order_by('date_posted')
 
         tweets = Tweet.objects.all()
         already_liked = []
